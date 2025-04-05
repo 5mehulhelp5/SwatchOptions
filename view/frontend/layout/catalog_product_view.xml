@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework/View/Layout/etc/page_configuration.xsd">
+
+    <!-- Load CSS correctly -->
+    <head>
+        <css src="CodeAesthetix_SwatchOptions::css/custom-options.css"/>
+    </head>
+
+    <body>
+        <!-- Override the customizable options block -->
+        <referenceBlock name="product.info.options" template="CodeAesthetix_SwatchOptions::product/options.phtml"/>
+    </body>
+</page>

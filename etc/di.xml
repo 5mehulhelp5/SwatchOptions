@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework/ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\Framework\Json\EncoderInterface" type="Magento\Framework\Json\Encoder"/>
+
+    <type name="Magento\Catalog\Block\Product\View\Options">
+        <plugin name="codeaesthetix_swatch_options_plugin" type="CodeAesthetix\SwatchOptions\Plugin\CustomOptions"/>
+    </type>
+
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\CustomOptions">
+        <plugin name="custom_option_color_field"
+                type="CodeAesthetix\SwatchOptions\Plugin\CustomOptionColorField" />
+    </type>
+
+</config>

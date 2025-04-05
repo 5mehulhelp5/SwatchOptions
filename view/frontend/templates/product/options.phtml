@@ -1,0 +1,93 @@
+<?php
+/**
+ * @var \Magento\Catalog\Block\Product\View\Options $block
+ */
+$options = $block->getOptions();
+$pricingHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
+
+if (!$options) {
+    return;
+}
+?>
+<div class="custom-swatch-options">
+    <?php foreach ($options as $option): ?>
+        <?php if ($option->getType() === 'drop_down'): ?>
+            <div class="swatch-option-group" data-option-id="<?= $option->getId() ?>">
+                <label><?= $option->getTitle() ?></label>
+                <div class="swatch-container">
+                    <?php foreach ($option->getValues() as $value): ?>
+                        <?php
+                        $optionTypeId = $value->getOptionTypeId();
+                        $optionPrice = $value->getPrice(true); // ✅ Get price with correct currency conversion
+                        $dataPrice = $pricingHelper->currency($optionPrice, false, false); // ✅ Format price
+                        $formattedPrice = $pricingHelper->currency($optionPrice, true, false); // ✅ Format price
+                        ?>
+
+                        <button type="button" class="swatch-option text"
+                                data-value="<?= $optionTypeId ?>"
+                                data-price="<?= $dataPrice ?>"
+                                onclick="setCustomOption(<?= $option->getId() ?>, <?= $optionTypeId ?>)">
+                            <?= $value->getTitle() ?> <?= $formattedPrice ?>
+                        </button>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- Hidden Select Dropdown to Ensure Magento Compatibility -->
+                <select name="options[<?= $option->getId() ?>]" class="option-select" style="display: none;">
+                    <option value="">-- Please Select --</option>
+                    <?php foreach ($option->getValues() as $value): ?>
+                        <option value="<?= $value->getOptionTypeId() ?>"
+                                data-price="<?= $pricingHelper->currency($value->getPrice(true), false, false) ?>">
+                            <?= $value->getTitle() ?> <?= $pricingHelper->currency($value->getPrice(true), true, false) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>
+
+<!-- Load JavaScript -->
+<script type="text/javascript">
+    require(['jquery', 'CodeAesthetix_SwatchOptions/js/view/custom-options'], function ($) {
+        console.log("Swatch script loaded successfully");
+    });
+</script>
+
+<script>
+    require(['jquery', 'Magento_Catalog/js/price-utils'], function ($, priceUtils) {
+        $(document).ready(function () {
+            let priceBox = $('[data-role="priceBox"]'); // ✅ Get dynamic price container
+            let basePrice = parseFloat(priceBox.find('.price-wrapper').data('price-amount')) || 0; // ✅ Get base price
+            let selectedOptions = {}; // ✅ Store selected option prices by group
+
+            $('.swatch-option').on('click', function () {
+                let optionGroupId = $(this).closest('.swatch-option-group').data('option-id'); // ✅ Identify group
+                let optionPrice = parseFloat($(this).data('price')) || 0; // ✅ Get price
+
+                // ✅ Remove active class from other buttons in the same group
+                $(this).siblings().removeClass('selected');
+                $(this).addClass('selected');
+
+                // ✅ If "None" is selected, remove price from calculation
+                if ($(this).data('value') === "none") {
+                    delete selectedOptions[optionGroupId];
+                } else {
+                    selectedOptions[optionGroupId] = optionPrice; // ✅ Store selected price
+                }
+
+                // ✅ Recalculate total price
+                let totalPrice = basePrice;
+                $.each(selectedOptions, function (key, value) {
+                    totalPrice += value;
+                });
+
+                // ✅ Format and update price display
+                let formattedPrice = priceUtils.formatPrice(totalPrice, window.priceFormat);
+                priceBox.find('.price').html(formattedPrice);
+            });
+        });
+    });
+
+
+</script>

@@ -43,15 +43,26 @@
     background: #f8f8f8;
 }
 
-.swatch-option:hover {
-    border-color: #87b53b;
+.swatch-option:not(.disabled):hover {
+    border: 1px solid #87b53b;
+    color: #333333;
+}
+.swatch-option.disabled {
+    box-shadow: unset;
+    cursor: default;
+    pointer-events: none;
 }
 
 .swatch-option.selected {
-    border-color: #87b53b;
+    border: 1px solid #87b53b;
     background-color: #87b53b;
     color: #87b53b;
 }
+
+.swatch-attribute-label::after {
+    content: none !important;
+}
+
 
 /* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
@@ -67,6 +78,46 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         gap: 8px;
+    }
+
+    .swatch-option.text.selected {
+        background-color: #ffffff;
+    }
+    .swatch-option.selected {
+        border: 1px solid #87b53b;
+        background-color: #87b53b;
+        color: #87b53b;
+    }
+    .swatch-option:not(.disabled):hover {
+        border: 1px solid #87b53b;
+        color: #333333;
+    }
+    .swatch-option.disabled {
+        box-shadow: unset;
+        cursor: default;
+        pointer-events: none;
+    }
+
+    /* Match custom option label styling to swatch labels */
+    .custom-swatch-options .swatch-option-group label {
+        display: inline-block;
+        font-weight: 600;
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+        padding-right: 10px;
+        vertical-align: middle;
+    }
+
+    /* Match margin and layout of custom swatch groups to native swatch attributes */
+    .custom-swatch-options .swatch-option-group {
+        margin-bottom: 20px;
+    }
+
+    /* Optional: Make sure swatches align horizontally */
+    .custom-swatch-options .swatch-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
     .product-info-main .product-options-wrapper .swatch-opt .swatch-option.image {
@@ -85,21 +136,18 @@
         display: block;
     }
 
-    .swatch-option.text.selected {
-        background-color: #ffffff;
+    .product-info-main .product-options-wrapper .swatch-opt {
+        display: flex;
+        gap: 1rem;
     }
-    .swatch-option.selected {
-        border: 1px solid #87b53b;
-        color: #333333;
+
+    .product-info-main .product-options-wrapper .swatch-attribute {
+        width: 100%;
     }
-    .swatch-option:not(.disabled):hover {
-        border: 1px solid #87b53b;
-        color: #333333;
-    }
-    .swatch-option.disabled {
-        box-shadow: unset;
-        cursor: default;
-        pointer-events: none;
+
+    .swatch-attribute-label::after {
+        content: none !important;
     }
 
 }
+

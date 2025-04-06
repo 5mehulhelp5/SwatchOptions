@@ -32,10 +32,11 @@ define(['jquery', 'Magento_Catalog/js/price-box'], function ($) {
         const total = baseFinalPrice + getSelectedCustomOptionsPrice();
 
         priceBox.priceBox('updatePrice', {
-            'finalPrice': { 'amount': total },
-            'basePrice': { 'amount': total }
+            'finalPrice': { amount: total },
+            'basePrice': { amount: total }
         });
     }
+
 
     /**
      * Expose this globally for swatch button click: triggers selection

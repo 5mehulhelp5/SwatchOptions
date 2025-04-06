@@ -8,9 +8,4 @@
         <plugin name="codeaesthetix_swatch_options_plugin" type="CodeAesthetix\SwatchOptions\Plugin\CustomOptions"/>
     </type>
 
-    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\CustomOptions">
-        <plugin name="custom_option_color_field"
-                type="CodeAesthetix\SwatchOptions\Plugin\CustomOptionColorField" />
-    </type>
-
 </config>

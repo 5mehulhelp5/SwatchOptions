@@ -1,10 +1,13 @@
 .custom-swatch-options {
     display: flex;
     flex-direction: column; /* Stack swatch groups vertically */
-    gap: 15px;
+    margin-top: 10px;
     width: 100%;
 }
 
+.swatch-attribute-options {
+    margin: 5px 0;
+}
 .swatch-option-group {
     display: flex;
     flex-direction: column; /* Ensure label and swatches are stacked */
@@ -103,6 +106,7 @@
         display: inline-block;
         font-weight: 600;
         font-size: 1.6rem;
+        margin-top: 10px;
         margin-bottom: 10px;
         padding-right: 10px;
         vertical-align: middle;
@@ -117,7 +121,7 @@
     .custom-swatch-options .swatch-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 2px;
     }
 
     .product-info-main .product-options-wrapper .swatch-opt .swatch-option.image {

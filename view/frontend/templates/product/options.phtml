@@ -13,21 +13,21 @@ if (!$options) {
     <?php foreach ($options as $option): ?>
         <?php if ($option->getType() === 'drop_down'): ?>
             <div class="swatch-option-group" data-option-id="<?= $option->getId() ?>">
-                <label><?= $option->getTitle() ?></label>
                 <div class="swatch-container">
+                    <label><?= $option->getTitle() ?></label>
                     <?php foreach ($option->getValues() as $value): ?>
                         <?php
                         $optionTypeId = $value->getOptionTypeId();
-                        $optionPrice = $value->getPrice(true); // ✅ Get price with correct currency conversion
-                        $dataPrice = $pricingHelper->currency($optionPrice, false, false); // ✅ Format price
-                        $formattedPrice = $pricingHelper->currency($optionPrice, true, false); // ✅ Format price
+                        $optionPrice = $value->getPrice(true); // Get price with correct currency conversion
+                        $dataPrice = $pricingHelper->currency($optionPrice, false, false); // Format price
+                        $formattedPrice = $pricingHelper->currency($optionPrice, true, false); // Format price
                         ?>
 
                         <button type="button" class="swatch-option text"
                                 data-value="<?= $optionTypeId ?>"
                                 data-price="<?= $dataPrice ?>"
                                 onclick="setCustomOption(<?= $option->getId() ?>, <?= $optionTypeId ?>)">
-                            <?= $value->getTitle() ?> <?= $formattedPrice ?>
+                            <?= $value->getTitle() ?>
                         </button>
                     <?php endforeach; ?>
                 </div>
